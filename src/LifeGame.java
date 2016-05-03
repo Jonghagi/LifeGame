@@ -2,12 +2,15 @@
  * Created by Kimjonghak on 2016. 5. 2..
  */
 public class LifeGame {
-    public static void main(){
+    public static void main(String args[]){
         Cell[][] cell;
         int N = 60;
         boolean isGaming;
         cell = new Cell[N][N];
         isGaming = false;
+
+        LifeGameUI UI = new LifeGameUI();
+        UI.getStart();
 
         while(isGaming){
             checkCells(cell, N);
