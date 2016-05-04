@@ -4,6 +4,9 @@
 public class Cell {
     private boolean status;
 
+    Cell(){
+        status = false;
+    }
     public void Die(){
         status = false;
     }

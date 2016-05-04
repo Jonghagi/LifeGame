@@ -2,15 +2,24 @@
  * Created by Kimjonghak on 2016. 5. 2..
  */
 public class LifeGame {
+    static LifeGameUI UI = new LifeGameUI();
+
     public static void main(String args[]){
         Cell[][] cell;
         int N = 60;
         boolean isGaming;
         cell = new Cell[N][N];
-        isGaming = false;
+        isGaming = true;
 
-        LifeGameUI UI = new LifeGameUI();
-        UI.getStart();
+
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                cell[i][j] = new Cell();
+            }
+        }
+
+        
+        UI.start(cell);
 
         while(isGaming){
             checkCells(cell, N);
@@ -34,19 +43,40 @@ public class LifeGame {
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
                 NumberOfLives = 0;
+                if(i == 0 && j == 0) {
+                    if (checkRight(cell, i, j)) {
+                        NumberOfLives++;
+                    }
+                    if (checkRightBottom(cell, i, j)) {
+                        NumberOfLives++;
+                    }
 
-                if(i == 0 && j == 0){
-                    if(checkRight(cell, i, j)){
+                    if (checkBottom(cell, i, j)) {
                         NumberOfLives++;
                     }
-                    if(checkRightBottom(cell, i, j)){
+                } else if(i == 0 && j == N-1) {
+                    if (checkLeft(cell, i, j)) {
+                        NumberOfLives++;
+                    }
+                    if (checkLeftBottom(cell, i, j)) {
                         NumberOfLives++;
                     }
 
-                    if(checkBottom(cell, i, j)){
+                    if (checkBottom(cell, i, j)) {
                         NumberOfLives++;
                     }
-                } else if(i == 0){
+                } else if(j == 0 && i == N-1){
+                    if (checkRight(cell, i, j)) {
+                        NumberOfLives++;
+                    }
+                    if (checkRightTop(cell, i, j)) {
+                        NumberOfLives++;
+                    }
+
+                    if (checkTop(cell, i, j)) {
+                        NumberOfLives++;
+                    }
+                } else if(i == 0 && j < N-1){
                     if(checkLeft(cell, i, j)){
                         NumberOfLives++;
                     }
@@ -62,7 +92,7 @@ public class LifeGame {
                     if(checkRightBottom(cell, i, j)){
                         NumberOfLives++;
                     }
-                } else if(j == 0){
+                } else if(j == 0 && i < N - 1){
                     if(checkTop(cell, i, j)){
                         NumberOfLives++;
                     }
@@ -90,7 +120,7 @@ public class LifeGame {
                     if(checkTop(cell, i, j)){
                         NumberOfLives++;
                     }
-                } else if(i == N-1){
+                } else if(i == N-1 && j > 0){
                     if(checkLeft(cell, i, j)){
                         NumberOfLives++;
                     }
@@ -107,7 +137,7 @@ public class LifeGame {
                         NumberOfLives++;
                     }
 
-                } else if(j == N-1){
+                } else if(j == N-1 && i > 0){
                     if(checkTop(cell, i, j)){
                         NumberOfLives++;
                     }
@@ -154,10 +184,12 @@ public class LifeGame {
 
                 if(NumberOfLives == 3){
                     cell[i][j].Live();
+                    UI.Live(i, j);
                 } else if(NumberOfLives == 2){
 
                 } else {
                     cell[i][j].Die();
+                    UI.Die(i, j);
                 }
             }
         }
