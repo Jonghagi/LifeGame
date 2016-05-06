@@ -98,7 +98,7 @@ public class LifeGameUI extends JFrame {
     public void GameStart(){
         System.out.println("Start");
         Timer timer = new Timer();
-        timer.schedule(new EngineRun(), 500, 500);
+        timer.schedule(new EngineRun(), 100, 100);
     }
 
     public class EngineRun extends TimerTask {
